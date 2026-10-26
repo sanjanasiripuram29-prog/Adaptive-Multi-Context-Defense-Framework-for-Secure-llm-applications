@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register - Adaptive Defense Framework</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #07111f;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container {
+    width: 90%;
+    max-width: 450px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-icon {
+    font-size: 45px;
+}
+
+.logo h1 {
+    color: #55d9ff;
+    font-size: 22px;
+    margin-top: 8px;
+}
+
+.logo p {
+    color: #8299ad;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.card {
+    background: #0c1b2d;
+    border: 1px solid #203c56;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    color: #a8bacb;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+
+    background: #07111f;
+    border: 1px solid #28465f;
+    border-radius: 8px;
+
+    color: white;
+    outline: none;
+}
+
+input:focus {
+    border-color: #55d9ff;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #138fd1;
+    color: white;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0fa8f5;
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ff626c;
+    font-size: 12px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+
+    color: #8299ad;
+    font-size: 12px;
+}
+
+.login-link a {
+    color: #55d9ff;
+    text-decoration: none;
+}
+
+.home-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.home-link a {
+    color: #8299ad;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🛡️
+        </div>
+
+        <h1>
+            Adaptive Defense
+        </h1>
+
+        <p>
+            Create your secure account
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Create Account
+        </h2>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% if error %}
+
+                <div class="message">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <div class="input-group">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose a username"
+                    required>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    required>
+
+            </div>
+
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="/login/">
+                Login
+            </a>
+
+        </div>
+
+
+        <div class="home-link">
+
+            <a href="/">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

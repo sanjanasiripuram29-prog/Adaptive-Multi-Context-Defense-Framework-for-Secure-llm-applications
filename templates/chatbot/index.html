@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adaptive Multi-Context Defense Framework</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            background: #0b1929;
+            border-bottom: 1px solid #20394f;
+        }
+
+        .logo {
+            color: #55d9ff;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .nav-links a {
+            color: #c8d5df;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .shield {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 44px;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .highlight {
+            color: #55d9ff;
+        }
+
+        .description {
+            color: #91a5b5;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 720px;
+            margin: auto;
+        }
+
+        .buttons {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .login {
+            background: #168fce;
+            color: white;
+        }
+
+        .register {
+            border: 1px solid #29445a;
+            color: #dce8ef;
+        }
+
+        .features {
+            margin-top: 55px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .feature {
+            background: #0c1b2c;
+            border: 1px solid #20394f;
+            border-radius: 9px;
+            padding: 22px 15px;
+        }
+
+        .feature-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            color: #55d9ff;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: #8297a8;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        @media(max-width: 750px) {
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 500px) {
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        🛡️ Adaptive Defense Framework
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
+        <a href="{% url 'register' %}">
+            Register
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="shield">
+            🛡️
+        </div>
+
+        <h1>
+            Adaptive Multi-Context
+            <span class="highlight">
+                Defense Framework
+            </span>
+        </h1>
+
+        <p class="description">
+
+            Intelligent protection framework
+            for Large Language Model applications.
+            Analyze every prompt through context
+            validation, semantic consistency,
+            input reputation, prompt sanitization
+            and adaptive risk analysis.
+
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                href="{% url 'login' %}"
+                class="btn login">
+
+                Login
+
+            </a>
+
+
+            <a
+                href="{% url 'register' %}"
+                class="btn register">
+
+                Create Account
+
+            </a>
+
+        </div>
+
+
+        <div class="features">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    MCP Context Validation
+                </h3>
+
+                <p>
+                    Isolates and validates
+                    system, developer,
+                    retrieved and user contexts.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Semantic Consistency
+                </h3>
+
+                <p>
+                    Checks whether the meaning
+                    of incoming prompts is
+                    consistent with the conversation.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Input Reputation
+                </h3>
+
+                <p>
+                    Evaluates previous user
+                    behavior and calculates
+                    a trust score.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Prompt Sanitization
+                </h3>
+
+                <p>
+                    Detects suspicious instructions
+                    and transforms them into safer
+                    requests.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Adaptive Defense Framework</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: #e8f0f5;
+}
+
+.navbar {
+    height: 65px;
+    background: #0b1929;
+    border-bottom: 1px solid #20394f;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+}
+
+.logo {
+    color: #55d9ff;
+    font-weight: bold;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+
+    background: #172b3e;
+    padding: 9px 15px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+}
+
+.container {
+    width: 94%;
+    max-width: 1250px;
+
+    margin: 30px auto;
+}
+
+.title {
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.title p {
+    color: #8195a5;
+    font-size: 13px;
+}
+
+
+/* PROMPT */
+
+.prompt-box {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    margin-bottom: 25px;
+}
+
+.prompt-box h2 {
+    font-size: 16px;
+
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+
+    min-height: 120px;
+
+    resize: vertical;
+
+    background: #07111f;
+
+    color: white;
+
+    border: 1px solid #29445a;
+
+    border-radius: 7px;
+
+    padding: 15px;
+
+    font-family: Arial;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #55d9ff;
+}
+
+button {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #168fce;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #117db6;
+}
+
+button:disabled {
+    opacity: .5;
+}
+
+
+/* ERROR */
+
+#error {
+    display: none;
+
+    background: #351820;
+
+    border: 1px solid #71313d;
+
+    color: #ffb8c1;
+
+    padding: 15px;
+
+    border-radius: 7px;
+
+    margin-bottom: 20px;
+
+    white-space: pre-wrap;
+
+    font-size: 12px;
+}
+
+
+/* PIPELINE */
+
+.pipeline {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+}
+
+.pipeline-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.pipeline-title h2 {
+    font-size: 17px;
+}
+
+.status {
+    color: #8195a5;
+
+    font-size: 11px;
+}
+
+
+/* STEP */
+
+.step {
+    background: #091625;
+
+    border: 1px solid #20394f;
+
+    border-radius: 8px;
+
+    margin-bottom: 12px;
+}
+
+.step-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+}
+
+.number {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #172b3e;
+
+    color: #55d9ff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+.step-name {
+    flex: 1;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.step-status {
+    padding: 6px 10px;
+
+    background: #172b3e;
+
+    border-radius: 5px;
+
+    color: #9fb0bf;
+
+    font-size: 10px;
+}
+
+.step-body {
+    border-top: 1px solid #20394f;
+
+    padding: 18px;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.item {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 6px;
+
+    padding: 12px;
+}
+
+.label {
+    color: #718697;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 7px;
+}
+
+.value {
+    color: #dce8ef;
+
+    font-size: 12px;
+
+    word-break: break-word;
+}
+
+
+/* FINAL */
+
+.final-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+.final-card {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 9px;
+
+    padding: 18px;
+}
+
+.final-label {
+    color: #718697;
+
+    font-size: 10px;
+
+    margin-bottom: 10px;
+}
+
+.final-value {
+    color: #55d9ff;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+
+/* RESPONSE */
+
+.card {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    font-size: 16px;
+
+    margin-bottom: 15px;
+}
+
+.response {
+    background: #07111f;
+
+    border: 1px solid #20394f;
+
+    border-radius: 7px;
+
+    padding: 15px;
+
+    min-height: 80px;
+
+    white-space: pre-wrap;
+
+    line-height: 1.6;
+
+    color: #cbd8e0;
+
+    font-size: 13px;
+}
+
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 11px;
+
+    border-bottom: 1px solid #20394f;
+
+    text-align: left;
+
+    font-size: 11px;
+}
+
+th {
+    color: #718697;
+}
+
+td {
+    color: #c4d1d9;
+}
+
+
+/* ANALYTICS */
+
+.analytics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.analytics-card {
+    background: #0c1b2c;
+
+    border: 1px solid #20394f;
+
+    border-radius: 9px;
+
+    padding: 18px;
+}
+
+.analytics-card h3 {
+    color: #718697;
+
+    font-size: 10px;
+
+    margin-bottom: 10px;
+}
+
+.analytics-number {
+    color: #55d9ff;
+
+    font-size: 26px;
+
+    font-weight: bold;
+}
+
+
+@media(max-width: 800px) {
+
+    .final-grid,
+    .analytics {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media(max-width: 500px) {
+
+    .final-grid,
+    .analytics {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🛡️ Adaptive Multi-Context Defense Framework
+    </div>
+
+    <a
+        href="{% url 'logout' %}"
+        class="logout"
+    >
+        Logout
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+
+<!-- TITLE -->
+
+<div class="title">
+
+    <h1>
+        Security Dashboard
+    </h1>
+
+    <p>
+        Secure LLM prompt analysis using
+        adaptive multi-context defense.
+    </p>
+
+</div>
+
+
+<!-- ERROR -->
+
+<div id="error"></div>
+
+
+<!-- PROMPT -->
+
+<div class="prompt-box">
+
+    <h2>
+        🔍 LLM Prompt Security Analyzer
+    </h2>
+
+    <textarea
+        id="prompt"
+        placeholder="Enter your prompt here..."
+    ></textarea>
+
+    <button
+        id="analyze"
+        type="button"
+        onclick="analyzePrompt()"
+    >
+        Analyze Prompt
+    </button>
+
+</div>
+
+
+<!-- PIPELINE -->
+
+<div class="pipeline">
+
+    <div class="pipeline-title">
+
+        <h2>
+            Security Execution Pipeline
+        </h2>
+
+        <span
+            id="pipeline-status"
+            class="status"
+        >
+            WAITING
+        </span>
+
+    </div>
+
+
+    <!-- MCP -->
+
+    <div class="step">
+
+        <div class="step-header">
+
+            <div class="number">
+                01
+            </div>
+
+            <div class="step-name">
+                MCP Context Validation
+            </div>
+
+            <div
+                id="mcp-status"
+                class="step-status"
+            >
+                WAITING
+            </div>
+
+        </div>
+
+        <div class="step-body">
+
+            <div class="grid">
+
+                <div class="item">
+
+                    <div class="label">
+                        System Context
+                    </div>
+
+                    <div
+                        id="mcp-system"
+                        class="value"
+                    >
+                        PROTECTED
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Developer Context
+                    </div>
+
+                    <div
+                        id="mcp-developer"
+                        class="value"
+                    >
+                        PROTECTED
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Retrieved Context
+                    </div>
+
+                    <div
+                        id="mcp-retrieved"
+                        class="value"
+                    >
+                        AVAILABLE
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        User Context
+                    </div>
+
+                    <div
+                        id="mcp-user"
+                        class="value"
+                    >
+                        ACTIVE
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Attack Target
+                    </div>
+
+                    <div
+                        id="mcp-target"
+                        class="value"
+                    >
+                        NONE
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Threat Type
+                    </div>
+
+                    <div
+                        id="mcp-threat"
+                        class="value"
+                    >
+                        NONE
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEMANTIC -->
+
+    <div class="step">
+
+        <div class="step-header">
+
+            <div class="number">
+                02
+            </div>
+
+            <div class="step-name">
+                Semantic Consistency Check
+            </div>
+
+            <div
+                id="semantic-status"
+                class="step-status"
+            >
+                WAITING
+            </div>
+
+        </div>
+
+
+        <div class="step-body">
+
+            <div class="grid">
+
+                <div class="item">
+
+                    <div class="label">
+                        Previous Topic
+                    </div>
+
+                    <div
+                        id="previous-topic"
+                        class="value"
+                    >
+                        NONE
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Current Topic
+                    </div>
+
+                    <div
+                        id="current-topic"
+                        class="value"
+                    >
+                        NONE
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Consistency Score
+                    </div>
+
+                    <div
+                        id="semantic-score"
+                        class="value"
+                    >
+                        0%
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Analysis
+                    </div>
+
+                    <div
+                        id="semantic-explanation"
+                        class="value"
+                    >
+                        Waiting.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REPUTATION -->
+
+    <div class="step">
+
+        <div class="step-header">
+
+            <div class="number">
+                03
+            </div>
+
+            <div class="step-name">
+                Input Reputation Check
+            </div>
+
+            <div
+                id="reputation-status"
+                class="step-status"
+            >
+                WAITING
+            </div>
+
+        </div>
+
+
+        <div class="step-body">
+
+            <div class="grid">
+
+                <div class="item">
+
+                    <div class="label">
+                        Reputation Score
+                    </div>
+
+                    <div
+                        id="reputation-score"
+                        class="value"
+                    >
+                        100%
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Reputation Level
+                    </div>
+
+                    <div
+                        id="reputation-level"
+                        class="value"
+                    >
+                        TRUSTED
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Safe Requests
+                    </div>
+
+                    <div
+                        id="safe-requests"
+                        class="value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Suspicious Requests
+                    </div>
+
+                    <div
+                        id="suspicious-requests"
+                        class="value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Injection Attempts
+                    </div>
+
+                    <div
+                        id="injection-attempts"
+                        class="value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SANITIZER -->
+
+    <div class="step">
+
+        <div class="step-header">
+
+            <div class="number">
+                04
+            </div>
+
+            <div class="step-name">
+                Prompt Sanitization
+            </div>
+
+            <div
+                id="sanitizer-status"
+                class="step-status"
+            >
+                WAITING
+            </div>
+
+        </div>
+
+
+        <div class="step-body">
+
+            <div class="item">
+
+                <div class="label">
+                    Original Prompt
+                </div>
+
+                <div
+                    id="original-prompt"
+                    class="value"
+                >
+                    Waiting.
+                </div>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Sanitized Prompt
+                </div>
+
+                <div
+                    id="sanitized-prompt"
+                    class="value"
+                >
+                    Waiting.
+                </div>
+
+            </div>
+
+
+            <br>
+
+
+            <div class="item">
+
+                <div class="label">
+                    Transformation
+                </div>
+
+                <div
+                    id="transformation"
+                    class="value"
+                >
+                    NONE
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RISK -->
+
+    <div class="step">
+
+        <div class="step-header">
+
+            <div class="number">
+                05
+            </div>
+
+            <div class="step-name">
+                Adaptive Risk Analysis
+            </div>
+
+            <div
+                id="risk-status"
+                class="step-status"
+            >
+                WAITING
+            </div>
+
+        </div>
+
+
+        <div class="step-body">
+
+            <div class="grid">
+
+                <div class="item">
+
+                    <div class="label">
+                        Context Risk
+                    </div>
+
+                    <div
+                        id="context-risk"
+                        class="value"
+                    >
+                        0%
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Semantic Risk
+                    </div>
+
+                    <div
+                        id="semantic-risk"
+                        class="value"
+                    >
+                        0%
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Reputation Risk
+                    </div>
+
+                    <div
+                        id="reputation-risk"
+                        class="value"
+                    >
+                        0%
+                    </div>
+
+                </div>
+
+
+                <div class="item">
+
+                    <div class="label">
+                        Threats
+                    </div>
+
+                    <div
+                        id="threats"
+                        class="value"
+                    >
+                        NONE
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FINAL RESULT -->
+
+<div class="final-grid">
+
+
+    <div class="final-card">
+
+        <div class="final-label">
+            RISK SCORE
+        </div>
+
+        <div
+            id="risk-score"
+            class="final-value"
+        >
+            0%
+        </div>
+
+    </div>
+
+
+    <div class="final-card">
+
+        <div class="final-label">
+            TRUST SCORE
+        </div>
+
+        <div
+            id="trust-score"
+            class="final-value"
+        >
+            100%
+        </div>
+
+    </div>
+
+
+    <div class="final-card">
+
+        <div class="final-label">
+            DECISION
+        </div>
+
+        <div
+            id="decision"
+            class="final-value"
+        >
+            WAITING
+        </div>
+
+    </div>
+
+
+    <div class="final-card">
+
+        <div class="final-label">
+            SECURITY LEVEL
+        </div>
+
+        <div
+            id="security-level"
+            class="final-value"
+        >
+            LOW
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RESPONSE -->
+
+<div class="card">
+
+    <h2>
+        🤖 Secure LLM Response
+    </h2>
+
+    <div
+        id="response"
+        class="response"
+    >
+        Enter a prompt and click
+        Analyze Prompt.
+    </div>
+
+</div>
+
+
+<!-- ANALYTICS -->
+
+<div class="card">
+
+    <h2>
+        📊 Risk & Trust Analytics
+    </h2>
+
+    <div class="analytics">
+
+        <div class="analytics-card">
+
+            <h3>
+                PROMPTS
+            </h3>
+
+            <div
+                id="total-prompts"
+                class="analytics-number"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <h3>
+                ATTACKS
+            </h3>
+
+            <div
+                id="total-attacks"
+                class="analytics-number"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <h3>
+                AVG RISK
+            </h3>
+
+            <div
+                id="average-risk"
+                class="analytics-number"
+            >
+                0%
+            </div>
+
+        </div>
+
+
+        <div class="analytics-card">
+
+            <h3>
+                AVG TRUST
+            </h3>
+
+            <div
+                id="average-trust"
+                class="analytics-number"
+            >
+                100%
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ATTACK ANALYTICS -->
+
+<div class="card">
+
+    <h2>
+        🚨 Attack Analytics
+    </h2>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Attack Type
+                    </th>
+
+                    <th>
+                        Count
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="attack-analytics">
+
+                <tr>
+
+                    <td colspan="2">
+                        No attacks detected.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- PROMPT LOGS -->
+
+<div class="card">
+
+    <h2>
+        📝 Prompt Logs
+    </h2>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Time
+                    </th>
+
+                    <th>
+                        Prompt
+                    </th>
+
+                    <th>
+                        Risk
+                    </th>
+
+                    <th>
+                        Trust
+                    </th>
+
+                    <th>
+                        Decision
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="prompt-logs">
+
+                <tr>
+
+                    <td colspan="5">
+                        Loading...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- ATTACK LOGS -->
+
+<div class="card">
+
+    <h2>
+        🚨 Attack Logs
+    </h2>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Time
+                    </th>
+
+                    <th>
+                        Prompt
+                    </th>
+
+                    <th>
+                        Attack
+                    </th>
+
+                    <th>
+                        Risk
+                    </th>
+
+                    <th>
+                        Decision
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="attack-logs">
+
+                <tr>
+
+                    <td colspan="5">
+                        No attacks detected.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CSRF
+===================================================== */
+
+function getCookie(name) {
+
+    let value = null;
+
+    if (document.cookie) {
+
+        const cookies =
+            document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (
+                cookie.startsWith(
+                    name + "="
+                )
+            ) {
+
+                value =
+                    decodeURIComponent(
+                        cookie.substring(
+                            name.length + 1
+                        )
+                    );
+
+                break;
+            }
+        }
+    }
+
+    return value;
+}
+
+
+/* =====================================================
+   SAFE TEXT
+===================================================== */
+
+function safe(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value);
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message) {
+
+    const box =
+        document.getElementById(
+            "error"
+        );
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+
+}
+
+
+function hideError() {
+
+    const box =
+        document.getElementById(
+            "error"
+        );
+
+    box.textContent =
+        "";
+
+    box.style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   ANALYZE PROMPT
+===================================================== */
+
+async function analyzePrompt() {
+    const prompt = document.getElementById("prompt").value.trim();
+    const button = document.getElementById("analyze");
+
+    if (!prompt) {
+        showError("Please enter a prompt.");
+        return;
+    }
+
+    hideError();
+    button.disabled = true;
+    button.textContent = "Analyzing...";
+
+    document.getElementById("pipeline-status").textContent = "RUNNING";
+    document.getElementById("response").textContent = "Running security analysis...";
+
+    [
+        "mcp-status",
+        "semantic-status",
+        "reputation-status",
+        "sanitizer-status",
+        "risk-status"
+    ].forEach(function(id) {
+        document.getElementById(id).textContent = "RUNNING";
+    });
+
+    try {
+        // -------------------------------------------------
+        // STEP 1: SECURITY ANALYSIS ONLY
+        // -------------------------------------------------
+        const analysisController = new AbortController();
+        const analysisTimeout = setTimeout(function() {
+            analysisController.abort();
+        }, 120000);
+
+        const analysisResponse = await fetch("/chat/", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({ prompt: prompt }),
+            signal: analysisController.signal
+        });
+
+        clearTimeout(analysisTimeout);
+
+        const analysisRaw = await analysisResponse.text();
+        console.log("SECURITY HTTP STATUS:", analysisResponse.status);
+        console.log("SECURITY SERVER RESPONSE:", analysisRaw);
+
+        if (!analysisRaw) {
+            throw new Error("The security server returned an empty response.");
+        }
+
+        let data;
+        try {
+            data = JSON.parse(analysisRaw);
+        } catch (error) {
+            throw new Error("Django returned an invalid security response. Check the Django terminal.");
+        }
+
+        if (!analysisResponse.ok || data.success === false) {
+            throw new Error(
+                data.error ||
+                data.message ||
+                "Security analysis failed. HTTP " + analysisResponse.status
+            );
+        }
+
+        // Display all security pipeline results.
+        // showResults() intentionally does NOT generate or overwrite the AI response.
+        showResults(data);
+
+        document.getElementById("pipeline-status").textContent = "ANALYSIS COMPLETE";
+        document.getElementById("response").textContent = "Generating secure AI response...";
+
+        // -------------------------------------------------
+        // STEP 2: SEND SANITIZED PROMPT TO OLLAMA
+        // -------------------------------------------------
+        const sanitizedPrompt =
+            data.sanitized_prompt ||
+            (data.sanitizer && data.sanitizer.sanitized) ||
+            prompt;
+
+        console.log("SANITIZED PROMPT:", sanitizedPrompt);
+
+        const aiController = new AbortController();
+        const aiTimeout = setTimeout(function() {
+            aiController.abort();
+        }, 240000);
+
+        const aiResponse = await fetch("/generate-response/", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                sanitized_prompt: sanitizedPrompt
+            }),
+            signal: aiController.signal
+        });
+
+        clearTimeout(aiTimeout);
+
+        const aiRaw = await aiResponse.text();
+        console.log("AI HTTP STATUS:", aiResponse.status);
+        console.log("AI SERVER RESPONSE:", aiRaw);
+
+        if (!aiRaw) {
+            throw new Error("The AI server returned an empty response.");
+        }
+
+        let aiData;
+        try {
+            aiData = JSON.parse(aiRaw);
+        } catch (error) {
+            throw new Error("Django returned an invalid AI response. Check the Django terminal.");
+        }
+
+        if (!aiResponse.ok || aiData.success === false) {
+            throw new Error(
+                aiData.error ||
+                aiData.message ||
+                "AI response generation failed. HTTP " + aiResponse.status
+            );
+        }
+
+        const finalResponse =
+            aiData.response ||
+            aiData.answer ||
+            aiData.message;
+
+        if (!finalResponse) {
+            throw new Error("The AI service returned an empty response.");
+        }
+
+        document.getElementById("response").textContent = safe(finalResponse);
+        document.getElementById("pipeline-status").textContent = "COMPLETE";
+
+        // Refresh analytics and logs after the request is complete.
+        await loadAnalytics();
+        await loadLogs();
+    }
+    catch (error) {
+        console.error("ANALYSIS/AI ERROR:", error);
+
+        let message = error.message || "Unknown error.";
+
+        if (error.name === "AbortError") {
+            message = "The request timed out. Make sure Django and Ollama are running with llama3.";
+        }
+
+        showError("Request failed:\n\n" + message);
+        document.getElementById("pipeline-status").textContent = "FAILED";
+        document.getElementById("response").textContent = "AI response could not be generated.";
+    }
+    finally {
+        button.disabled = false;
+        button.textContent = "Analyze Prompt";
+    }
+}
+
+/* =====================================================
+   SHOW RESULTS
+===================================================== */
+
+function showResults(data) {
+
+
+    console.log(
+        "FINAL ANALYSIS:",
+        data
+    );
+
+
+    /* =================================================
+       MCP
+    ================================================= */
+
+    const mcp =
+        data.mcp || {};
+
+
+    document
+        .getElementById(
+            "mcp-status"
+        )
+        .textContent =
+        safe(
+            mcp.result ||
+            "PASSED"
+        );
+
+
+    if (mcp.contexts) {
+
+        document
+            .getElementById(
+                "mcp-system"
+            )
+            .textContent =
+            safe(
+                mcp.contexts.system
+            );
+
+
+        document
+            .getElementById(
+                "mcp-developer"
+            )
+            .textContent =
+            safe(
+                mcp.contexts.developer
+            );
+
+
+        document
+            .getElementById(
+                "mcp-retrieved"
+            )
+            .textContent =
+            safe(
+                mcp.contexts.retrieved
+            );
+
+
+        document
+            .getElementById(
+                "mcp-user"
+            )
+            .textContent =
+            safe(
+                mcp.contexts.user
+            );
+
+    }
+
+
+    document
+        .getElementById(
+            "mcp-target"
+        )
+        .textContent =
+        safe(
+            mcp.attack_target ||
+            mcp.target ||
+            "NONE"
+        );
+
+
+    document
+        .getElementById(
+            "mcp-threat"
+        )
+        .textContent =
+        safe(
+            mcp.threat_type ||
+            "NONE"
+        );
+
+
+    /* =================================================
+       SEMANTIC
+    ================================================= */
+
+    const semantic =
+        data.semantic || {};
+
+
+    document
+        .getElementById(
+            "semantic-status"
+        )
+        .textContent =
+        safe(
+            semantic.result ||
+            "CONSISTENT"
+        );
+
+
+    document
+        .getElementById(
+            "previous-topic"
+        )
+        .textContent =
+        safe(
+            semantic.previous_topic ||
+            "NONE"
+        );
+
+
+    document
+        .getElementById(
+            "current-topic"
+        )
+        .textContent =
+        safe(
+            semantic.current_topic ||
+            "GENERAL"
+        );
+
+
+    document
+        .getElementById(
+            "semantic-score"
+        )
+        .textContent =
+        safe(
+            semantic.score ??
+            100
+        )
+        + "%";
+
+
+    document
+        .getElementById(
+            "semantic-explanation"
+        )
+        .textContent =
+        safe(
+            semantic.explanation ||
+            "Prompt analysis completed."
+        );
+
+
+    /* =================================================
+       REPUTATION
+    ================================================= */
+
+    const reputation =
+        data.reputation || {};
+
+
+    document
+        .getElementById(
+            "reputation-status"
+        )
+        .textContent =
+        safe(
+            reputation.level ||
+            "TRUSTED"
+        );
+
+
+    document
+        .getElementById(
+            "reputation-score"
+        )
+        .textContent =
+        safe(
+            reputation.score ??
+            100
+        )
+        + "%";
+
+
+    document
+        .getElementById(
+            "reputation-level"
+        )
+        .textContent =
+        safe(
+            reputation.level ||
+            "TRUSTED"
+        );
+
+
+    document
+        .getElementById(
+            "safe-requests"
+        )
+        .textContent =
+        safe(
+            reputation.safe_requests ??
+            0
+        );
+
+
+    document
+        .getElementById(
+            "suspicious-requests"
+        )
+        .textContent =
+        safe(
+            reputation.suspicious_requests ??
+            0
+        );
+
+
+    document
+        .getElementById(
+            "injection-attempts"
+        )
+        .textContent =
+        safe(
+            reputation.injection_attempts ??
+            0
+        );
+
+
+    /* =================================================
+       SANITIZER
+    ================================================= */
+
+    const sanitizer =
+        data.sanitizer || {};
+
+
+    document
+        .getElementById(
+            "sanitizer-status"
+        )
+        .textContent =
+        safe(
+            sanitizer.status ||
+            "COMPLETE"
+        );
+
+
+    document
+        .getElementById(
+            "original-prompt"
+        )
+        .textContent =
+        safe(
+            sanitizer.original ||
+            data.original_prompt ||
+            ""
+        );
+
+
+    document
+        .getElementById(
+            "sanitized-prompt"
+        )
+        .textContent =
+        safe(
+            sanitizer.sanitized ||
+            data.sanitized_prompt ||
+            ""
+        );
+
+
+    document
+        .getElementById(
+            "transformation"
+        )
+        .textContent =
+        sanitizer.changed
+        ? "TRANSFORMED"
+        : "NO TRANSFORMATION REQUIRED";
+
+
+    /* =================================================
+       RISK
+    ================================================= */
+
+    const risk =
+        data.risk || {};
+
+
+    document
+        .getElementById(
+            "risk-status"
+        )
+        .textContent =
+        "COMPLETE";
+
+
+    document
+        .getElementById(
+            "context-risk"
+        )
+        .textContent =
+        safe(
+            risk.context_risk ??
+            0
+        )
+        + "%";
+
+
+    document
+        .getElementById(
+            "semantic-risk"
+        )
+        .textContent =
+        safe(
+            risk.semantic_risk ??
+            0
+        )
+        + "%";
+
+
+    document
+        .getElementById(
+            "reputation-risk"
+        )
+        .textContent =
+        safe(
+            risk.reputation_risk ??
+            0
+        )
+        + "%";
+
+
+    const threats =
+        data.threats || [];
+
+
+    document
+        .getElementById(
+            "threats"
+        )
+        .textContent =
+        threats.length
+        ? threats.join(", ")
+        : "NONE";
+
+
+    /* =================================================
+       FINAL SCORES
+    ================================================= */
+
+    const riskScore =
+        Number(
+            data.risk_score ??
+            0
+        );
+
+
+    const trustScore =
+        Number(
+            data.trust_score ??
+            Math.max(
+                0,
+                100 - riskScore
+            )
+        );
+
+
+    document
+        .getElementById(
+            "risk-score"
+        )
+        .textContent =
+        riskScore + "%";
+
+
+    document
+        .getElementById(
+            "trust-score"
+        )
+        .textContent =
+        trustScore + "%";
+
+
+    document
+        .getElementById(
+            "decision"
+        )
+        .textContent =
+        safe(
+            data.decision ||
+            "ALLOW"
+        );
+
+
+    document
+        .getElementById(
+            "security-level"
+        )
+        .textContent =
+        safe(
+            data.security_level ||
+            "LOW"
+        );
+
+
+}
+
+
+/* =====================================================
+   ANALYTICS
+===================================================== */
+
+async function loadAnalytics() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/dashboard-stats/",
+                {
+                    credentials:
+                        "same-origin"
+                }
+            );
+
+
+        if (!response.ok) {
+            return;
+        }
+
+
+        const type =
+            response.headers.get(
+                "content-type"
+            ) || "";
+
+
+        if (
+            !type.includes(
+                "application/json"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+            return;
+        }
+
+
+        document
+            .getElementById(
+                "total-prompts"
+            )
+            .textContent =
+            safe(
+                data.total_prompts ??
+                0
+            );
+
+
+        document
+            .getElementById(
+                "total-attacks"
+            )
+            .textContent =
+            safe(
+                data.total_attacks ??
+                0
+            );
+
+
+        document
+            .getElementById(
+                "average-risk"
+            )
+            .textContent =
+            safe(
+                data.average_risk ??
+                0
+            )
+            + "%";
+
+
+        document
+            .getElementById(
+                "average-trust"
+            )
+            .textContent =
+            safe(
+                data.average_trust ??
+                100
+            )
+            + "%";
+
+
+        const attackBody =
+            document.getElementById(
+                "attack-analytics"
+            );
+
+
+        attackBody.innerHTML =
+            "";
+
+
+        const attacks =
+            data.attack_types ||
+            {};
+
+
+        const entries =
+            Object.entries(
+                attacks
+            );
+
+
+        if (!entries.length) {
+
+            attackBody.innerHTML =
+                `
+                <tr>
+                    <td colspan="2">
+                        No attacks detected.
+                    </td>
+                </tr>
+                `;
+
+            return;
+        }
+
+
+        entries.forEach(
+            function(item) {
+
+                attackBody.innerHTML +=
+                    `
+                    <tr>
+
+                        <td>
+                            ${safe(item[0])}
+                        </td>
+
+                        <td>
+                            ${safe(item[1])}
+                        </td>
+
+                    </tr>
+                    `;
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Analytics error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGS
+===================================================== */
+
+async function loadLogs() {
+
+    await loadPromptLogs();
+
+    await loadAttackLogs();
+
+}
+
+
+/* =====================================================
+   PROMPT LOGS
+===================================================== */
+
+async function loadPromptLogs() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/prompt-logs/",
+                {
+                    credentials:
+                        "same-origin"
+                }
+            );
+
+
+        if (!response.ok) {
+            return;
+        }
+
+
+        const type =
+            response.headers.get(
+                "content-type"
+            ) || "";
+
+
+        if (
+            !type.includes(
+                "application/json"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const body =
+            document.getElementById(
+                "prompt-logs"
+            );
+
+
+        body.innerHTML =
+            "";
+
+
+        if (
+            !data.logs ||
+            !data.logs.length
+        ) {
+
+            body.innerHTML =
+                `
+                <tr>
+
+                    <td colspan="5">
+                        No prompt logs yet.
+                    </td>
+
+                </tr>
+                `;
+
+            return;
+        }
+
+
+        data.logs.forEach(
+            function(log) {
+
+                body.innerHTML +=
+                    `
+                    <tr>
+
+                        <td>
+                            ${safe(
+                                log.created_at
+                            )}
+                        </td>
+
+                        <td>
+                            ${safe(
+                                log.prompt
+                            )}
+                        </td>
+
+                        <td>
+                            ${safe(
+                                log.risk_score
+                            )}%
+                        </td>
+
+                        <td>
+                            ${safe(
+                                log.trust_score
+                            )}%
+                        </td>
+
+                        <td>
+                            ${safe(
+                                log.decision
+                            )}
+                        </td>
+
+                    </tr>
+                    `;
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Prompt log error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ATTACK LOGS
+===================================================== */
+
+async function loadAttackLogs() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/attack-logs/",
+                {
+                    credentials:
+                        "same-origin"
+                }
+            );
+
+
+        if (!response.ok) {
+            return;
+        }
+
+
+        const type =
+            response.headers.get(
+                "content-type"
+            ) || "";
+
+
+        if (
+            !type.includes(
+                "application/json"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const body =
+            document.getElementById(
+                "attack-logs"
+            );
+
+
+        body.innerHTML =
+            "";
+
+
+        if (
+            !data.attacks ||
+            !data.attacks.length
+        ) {
+
+            body.innerHTML =
+                `
+                <tr>
+
+                    <td colspan="5">
+                        No attacks detected.
+                    </td>
+
+                </tr>
+                `;
+
+            return;
+        }
+
+
+        data.attacks.forEach(
+            function(attack) {
+
+                body.innerHTML +=
+                    `
+                    <tr>
+
+                        <td>
+                            ${safe(
+                                attack.created_at
+                            )}
+                        </td>
+
+                        <td>
+                            ${safe(
+                                attack.prompt
+                            )}
+                        </td>
+
+                        <td>
+                            ${safe(
+                                attack.attack_type
+                            )}
+                        </td>
+
+                        <td>
+                            ${safe(
+                                attack.risk_score
+                            )}%
+                        </td>
+
+                        <td>
+                            ${safe(
+                                attack.decision
+                            )}
+                        </td>
+
+                    </tr>
+                    `;
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Attack log error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadAnalytics();
+
+        loadLogs();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

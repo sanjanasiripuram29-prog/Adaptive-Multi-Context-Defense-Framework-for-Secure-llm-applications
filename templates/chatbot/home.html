@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Adaptive Defense Framework
+    </title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #07111f,
+                    #0b2035
+                );
+
+            color: white;
+
+        }
+
+
+        /* NAVBAR */
+
+        nav {
+
+            height: 70px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 0 7%;
+
+            background: #081522;
+
+            border-bottom:
+                1px solid #203c56;
+
+        }
+
+
+        .logo {
+
+            color: #55d9ff;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+        }
+
+
+        .links {
+
+            display: flex;
+
+            gap: 25px;
+
+        }
+
+
+        .links a {
+
+            color: #cbd7e3;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+        }
+
+
+        .links a:hover {
+
+            color: #55d9ff;
+
+        }
+
+
+        .register-link {
+
+            border:
+                1px solid #55d9ff;
+
+            padding:
+                9px 15px;
+
+            border-radius: 7px;
+
+        }
+
+
+        /* HERO */
+
+        .hero {
+
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 40px;
+
+        }
+
+
+        .hero-content {
+
+            max-width: 900px;
+
+        }
+
+
+        .shield {
+
+            font-size: 75px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .tag {
+
+            display: inline-block;
+
+            padding:
+                7px 15px;
+
+            background:
+                #102f47;
+
+            color:
+                #55d9ff;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        h1 {
+
+            font-size: 48px;
+
+            line-height: 1.15;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .blue {
+
+            color: #55d9ff;
+
+        }
+
+
+        .description {
+
+            color: #8ca1b5;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        /* BUTTONS */
+
+        .buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+        }
+
+
+        .button {
+
+            text-decoration: none;
+
+            padding:
+                14px 28px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        .login {
+
+            background:
+                #138fd1;
+
+            color: white;
+
+        }
+
+
+        .register {
+
+            border:
+                1px solid #55d9ff;
+
+            color:
+                #55d9ff;
+
+        }
+
+
+        .button:hover {
+
+            opacity: 0.85;
+
+        }
+
+
+        /* FEATURES */
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-top: 50px;
+
+        }
+
+
+        .feature {
+
+            background:
+                #0c1b2d;
+
+            border:
+                1px solid #203c56;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+        }
+
+
+        .feature h3 {
+
+            color:
+                #55d9ff;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .feature p {
+
+            color:
+                #8299ad;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+        }
+
+
+        @media(max-width: 700px) {
+
+            h1 {
+
+                font-size: 32px;
+
+            }
+
+
+            .features {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .links {
+
+                gap: 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+
+        🛡️ Adaptive Defense
+
+    </div>
+
+
+    <div class="links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/login/">
+            Login
+        </a>
+
+        <a
+            href="/register/"
+            class="register-link">
+
+            Register
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+
+        <div class="shield">
+
+            🛡️
+
+        </div>
+
+
+        <div class="tag">
+
+            SECURE LLM APPLICATIONS
+
+        </div>
+
+
+        <h1>
+
+            Adaptive Multi-Context
+
+            <span class="blue">
+
+                Defense Framework
+
+            </span>
+
+        </h1>
+
+
+        <p class="description">
+
+            An intelligent security framework
+            designed to protect Large Language
+            Model applications using context
+            validation, threat detection,
+            adaptive risk assessment and
+            secure decision making.
+
+        </p>
+
+
+        <div class="buttons">
+
+
+            <a
+                href="/login/"
+                class="button login">
+
+                Login
+
+            </a>
+
+
+            <a
+                href="/register/"
+                class="button register">
+
+                Create Account
+
+            </a>
+
+
+        </div>
+
+
+        <!-- FEATURES -->
+
+        <div class="features">
+
+
+            <div class="feature">
+
+                <h3>
+                    🧠 Multi-Context
+                </h3>
+
+                <p>
+                    Validates system, developer,
+                    user, retrieved and session
+                    contexts.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    🔍 Threat Detection
+                </h3>
+
+                <p>
+                    Identifies suspicious prompts
+                    and potential prompt injection
+                    attacks.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>
+                    🔐 Adaptive Defense
+                </h3>
+
+                <p>
+                    Dynamically determines whether
+                    a request should be allowed,
+                    sanitized or blocked.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>
